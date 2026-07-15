@@ -5,10 +5,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 
+// Redirigir a login si no está autenticado
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
+    return redirect()->route('login');
+});
 // Rutas de Autenticación (Breeze)
 require __DIR__ . '/auth.php';
 
