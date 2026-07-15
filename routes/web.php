@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LineaController;
 
 // Redirigir a login si no está autenticado
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
 // Rutas de Autenticación (Breeze)
 require __DIR__ . '/auth.php';
 
@@ -28,6 +30,12 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard');
     });
 
+    // ==================== CRUD DE LÍNEAS (Solo Admin) ====================
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('lineas', LineaController::class);
+    });
+
+    // Rutas de Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

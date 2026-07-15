@@ -45,6 +45,13 @@
                             </x-dropdown-link>
                         @endif
 
+                        <!-- Solo para Admin - Líneas -->
+                        @if (Auth::user()->role && Auth::user()->role->name === 'admin')
+                            <x-dropdown-link :href="route('admin.lineas.index')">
+                                📋 Gestionar Líneas
+                            </x-dropdown-link>
+                        @endif
+
                         <x-dropdown-link :href="route('profile.edit')">
                             ⚙️ Mi Perfil
                         </x-dropdown-link>
